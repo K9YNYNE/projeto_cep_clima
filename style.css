@@ -1,0 +1,219 @@
+* {
+    padding: 0px;
+    margin: 0px;
+    border: 0px;
+}
+body {
+    font-family: Arial, sans-serif;
+    background-color: #ccc;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;  
+
+}
+#principal-content{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background: black url(img/pexels-francesco-ungaro-409127.jpg) center top/cover no-repeat fixed;
+}
+#title-area {
+    width: 70vw;
+    height: 7vh;
+    background-color: #007FFF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    font-family: "Protest Guerrilla", sans-serif;
+    font-size: 1.1em;
+    font-weight: 300;
+    font-style: normal;
+    border-radius: 20px 20px 0px 0px;
+    
+}
+#title-area div{
+    width: 60vw;
+    height: 5vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;   
+}
+#title-area img{
+    height: 40px;
+    width: 40px;
+}
+#principal-contentCep {
+    font-family: "SUSE", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    height: 70vh;
+    width: 70vw;
+    background-color: #FFF;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;  
+    border-radius: 0px 0px 20px 20px;
+}
+.inputsetup button{
+    width: 120px;
+    height: 40px;
+    margin-top: 20px;
+    border-radius: 10px;
+    background-color: #007FFF;
+    font-size: 1em;
+    font-weight: bold;
+    color: #fff;
+}
+.inputsetup button:hover {
+    background-color: #FFF;
+    color: #007FFF;
+    border: 1px solid #007FFF;
+}
+.inputsetup select{
+    width: 80px;
+    height: 30px;
+    border: 1px solid black;
+}
+.inputsetup input{
+    width: 250px;
+    height: 30px;
+    font-size: 1.1em;
+    border-radius: 5px;
+    border: 1px solid black;
+}
+.inputsetup label{
+    font-size: 1.1em;
+}
+#cep-content{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+    width: 49%;
+    height: 100%;
+}
+#cep-content h1, h3{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+#cep-content .divcep{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    flex-direction: column;
+    margin-top: 10px;
+}
+#cep-content .divres{
+    width: 100%;
+    height: 40%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    
+}
+#cep-content .divresinput {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    height: 60%;
+    width: 100%;
+}
+#cep-content .divresinput input, label{
+    margin-top: 10px;
+}
+#end-content{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 49%;
+    height: 100%;
+    border: 1px solid black;
+}
+#end-content h1, h3{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+}
+#end-content .divend{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+#end-content .divend input, select, label{
+    margin-top: 10px;
+}
+#end-content .divresend{
+    width: 100%;
+    height: 30%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+#his-content{
+    position:  fixed;
+    right: -30vw ;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 5%;
+    align-items: center;
+    width: 30vw;
+    height: 99vh;
+    background-color: #fff;
+    transition: all 0.5s ease-in-out;
+}
+#his-content .titlehis{
+    width: 100%;
+    height: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    font-size: 1.1em;
+    text-decoration: underline;
+}
+#his-content .titlehis img{
+    width: 40px;
+}
+#historico {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+    height: 90%;
+    width: 100%;
+}
+#resultado {
+    margin-top: 20px;
+}
+.erro {
+color: red;
+}
+#limparhis{
+    height: 30vh;
+    width: 100%;
+}
+#historico button{
+    width: 90%;
+    height: 10%;
+    border-radius: 12px;
+    margin: 5px;
+    background-color: #007FFF;
+    color: #FFF;
+    font-size: 1.5em;
+}

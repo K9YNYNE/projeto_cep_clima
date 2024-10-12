@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta de Endereço por CEP ou Endereço</title>
+    <link rel="stylesheet" href="style.css">
+    <!--FONTES-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Protest+Guerrilla&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div id="principal-content">
+        <div id="title-area">
+            <div>
+                <div>
+                    <h1>
+                        GeoCEP
+                        <img src="icons/local.png">
+                    </h1>
+                </div>
+                <a href="#" onclick="m()">
+                    <img src="icons/historia.png">
+                </a>
+            </div>
+        </div>
+        <div id="principal-contentCep">
+            <div id="cep-content">
+                <div class="inputsetup">
+                    <h1>Consulta por CEP</h1>
+                    <h3>Veja seu endereço através do seu CEP</h3>
+                    <div class="divcep">
+                        <div>
+                            <label for="cep">Digite seu CEP: </label>
+                            <input type="text" id="cep" placeholder="Digite o CEP (apenas números)" maxlength="9">
+                        </div>
+                        <button onclick="buscarEndereco()">Buscar</button>
+                    </div>
+                    <div class="divres">
+                        <h2>Resultados</h2>
+                        <div class="divresinput">
+                            <input type="text" id="cep-info" placeholder=" CEP" readonly>
+                            <input type="text" id="logradouro-info" placeholder=" Logradouro" readonly>
+                            <input type="text" id="bairro-info" placeholder=" Bairro" readonly>
+                            <input type="text" id="cidade-info" placeholder=" Cidade" readonly>
+                            <input type="text" id="uf-info" placeholder=" Estado (UF)" readonly>
+                        </div>
+                        <button onclick="limparCampos()">Limpar</button>
+                    </div>
+                </div>
+            </div>
+            <div id="end-content">
+                <div class="inputsetup">
+                    <h1>Buscar CEP pelo Endereço</h1>
+                    <h3>Veja seu CEP através do seu Endereço</h3>
+                    <div class="divend">
+                        <label for="uf">Digite seu Estado:</label>
+                        <input type="text" id="uf" placeholder="Ex: SP" maxlength="2">
+                        <label for="cidade">Digite sua Cidade:</label>
+                        <input type="text" id="cidade" placeholder="Cidade">
+                        <label for="logradouro">Digite seu logradouro:</label>
+                        <input type="text" id="logradouro" placeholder="Logradouro">
+                        <button onclick="buscarCepPorEndereco()">Buscar CEP</button>
+                    </div>
+                    <div class="divresend">
+                        <div id="resultado"></div>
+                        <h2>Resultados</h2>
+                        <input type="text" id="cep-encontrado" placeholder="CEP" maxlength="8" readonly>
+                        <button onclick="limparCampos()">Limpar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="his-content">
+            <div class="titlehis">
+                <a href="#" onclick="fecharm()">
+                    <img src="icons/botao-voltar.png">
+                </a>
+                <h2>Histórico de Pesquisas</h2>
+            </div>
+            <div class="historico" id="historico">
+            <div id="limparhis"></div>
+            </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
