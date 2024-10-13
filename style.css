@@ -121,7 +121,6 @@ body {
 }
 #cep-content .divresinput {
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: space-around;
     height: 60%;

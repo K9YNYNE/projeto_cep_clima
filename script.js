@@ -21,7 +21,7 @@ async function buscarEndereco() {
         exibirMensagemErro('CEP inválido. Manda um CEP com 8 dígitos.'); // Mostra uma mensagem de erro
         return; // Sai daqui se o CEP estiver errado
     }
-    
+
     try {
         // Chama a API ViaCEP pra buscar o endereço usando o CEP
         const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
@@ -42,47 +42,6 @@ async function buscarEndereco() {
 }
 
 // Função pra procurar o CEP usando o estado, cidade e logradouro (rua)
-async function buscarCepPorEndereco() {
-    const uf = document.getElementById('uf').value.trim().toUpperCase(); // Pega o estado (UF) e coloca em maiúsculo
-    const cidade = document.getElementById('cidade').value.trim(); // Pega a cidade
-    const logradouro = document.getElementById('logradouro').value.trim(); // Pega o logradouro (rua)
-
-    // Verifica se os campos foram preenchidos
-    if (uf.length === 0) {
-        exibirMensagemErro('Manda o estado (UF).'); // Pede o estado se não tiver
-        return;
-    }
-
-    if (cidade.length === 0) {
-        exibirMensagemErro('Manda a cidade.'); // Pede a cidade se não tiver
-        return;
-    }
-
-    if (logradouro.length === 0) {
-        exibirMensagemErro('Manda o logradouro.'); // Pede o logradouro se não tiver
-        return;
-    }
-
-    try {
-        // Ajusta o logradouro pra garantir que não tenha espaços esquisitos
-        const normalizedLogradouro = logradouro.replace(/\s+/g, '+');
-        // Chama a API ViaCEP pra buscar o CEP com o endereço fornecido
-        const response = await fetch(`https://viacep.com.br/ws/${uf}/${cidade}/${normalizedLogradouro}/json/`);
-        if (!response.ok) {
-            throw new Error('Deu ruim na requisição'); // Lança erro se a requisição falhar
-        }
-
-        const data = await response.json(); // Transforma a resposta em JSON
-        if (data.length === 0) {
-            throw new Error('Endereço não encontrado'); // Lança erro se o endereço não for encontrado
-        }
-
-        exibirCep(data[0].cep); // Mostra o primeiro CEP encontrado no input
-        adicionaHistorico(data[0].cep); // Adiciona o CEP no histórico
-    } catch (error) {
-        exibirMensagemErro(error.message); // Mostra a mensagem de erro
-    }
-}
 
 // Função pra mostrar o CEP no input de resultados
 function exibirCep(cep) {
@@ -93,29 +52,20 @@ function exibirCep(cep) {
 
 // Função pra preencher os campos com os dados recebidos da API
 function preencherDados(data) {
-    document.getElementById('cep-info').value = data.cep || '';
-    document.getElementById('logradouro-info').value = data.logradouro || '';
-    document.getElementById('bairro-info').value = data.bairro || '';
     document.getElementById('cidade-info').value = data.localidade || '';
-    document.getElementById('uf-info').value = data.uf || '';
     limparMensagemErro(); // Limpa qualquer mensagem de erro
 }
 
 // Limpa os campos do endereço depois da pesquisa
 function limparInputsEndereco() {
-    document.getElementById('uf').value = '';
     document.getElementById('cidade').value = '';
-    document.getElementById('logradouro').value = '';
 }
 
 // Limpa todos os campos de entrada e resultados
 function limparCampos() {
     document.getElementById('cep').value = '';
     document.getElementById('cep-info').value = '';
-    document.getElementById('logradouro-info').value = '';
-    document.getElementById('bairro-info').value = '';
-    document.getElementById('cidade-info').value = '';
-    document.getElementById('uf-info').value = '';
+    document.getElementById('cidade-info').value =  ' ';
     document.getElementById('cep-encontrado').value = '';
     document.getElementById('resultado').innerHTML = '';
     limparMensagemErro(); // Limpa mensagem de erro, se houver

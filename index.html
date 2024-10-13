@@ -30,46 +30,30 @@
             <div id="cep-content">
                 <div class="inputsetup">
                     <h1>Consulta por CEP</h1>
-                    <h3>Veja seu endereço através do seu CEP</h3>
+                    <h3>Veja sua cidade e o clima através do seu CEP</h3>
                     <div class="divcep">
                         <div>
                             <label for="cep">Digite seu CEP: </label>
                             <input type="text" id="cep" placeholder="Digite o CEP (apenas números)" maxlength="9">
+                            <div class="divresinput">
+                                <label for="cidade-info">Digite sua cidade: </label>
+                                <input type="text" id="cidade-info" placeholder=" Cidade" >
+                            </div>
                         </div>
+                        <div>
                         <button onclick="buscarEndereco()">Buscar</button>
+                        <button onclick="limparCampos()">Limpar</button>
+
+                        </div>    
                     </div>
                     <div class="divres">
                         <h2>Resultados</h2>
-                        <div class="divresinput">
-                            <input type="text" id="cep-info" placeholder=" CEP" readonly>
-                            <input type="text" id="logradouro-info" placeholder=" Logradouro" readonly>
-                            <input type="text" id="bairro-info" placeholder=" Bairro" readonly>
-                            <input type="text" id="cidade-info" placeholder=" Cidade" readonly>
-                            <input type="text" id="uf-info" placeholder=" Estado (UF)" readonly>
-                        </div>
-                        <button onclick="limparCampos()">Limpar</button>
                     </div>
                 </div>
             </div>
             <div id="end-content">
                 <div class="inputsetup">
-                    <h1>Buscar CEP pelo Endereço</h1>
-                    <h3>Veja seu CEP através do seu Endereço</h3>
-                    <div class="divend">
-                        <label for="uf">Digite seu Estado:</label>
-                        <input type="text" id="uf" placeholder="Ex: SP" maxlength="2">
-                        <label for="cidade">Digite sua Cidade:</label>
-                        <input type="text" id="cidade" placeholder="Cidade">
-                        <label for="logradouro">Digite seu logradouro:</label>
-                        <input type="text" id="logradouro" placeholder="Logradouro">
-                        <button onclick="buscarCepPorEndereco()">Buscar CEP</button>
-                    </div>
-                    <div class="divresend">
-                        <div id="resultado"></div>
-                        <h2>Resultados</h2>
-                        <input type="text" id="cep-encontrado" placeholder="CEP" maxlength="8" readonly>
-                        <button onclick="limparCampos()">Limpar</button>
-                    </div>
+
                 </div>
             </div>
         </div>
