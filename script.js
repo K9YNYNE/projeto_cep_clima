@@ -1,75 +1,80 @@
-// Função pro menu
-function m() {
-    const menu = document.getElementById('his-content');
-    menu.style.right = "0";
-}
-function fecharm() {
-    const menu = document.getElementById('his-content');
-    menu.style.right = "-30vw";
-}
+function buscarEndereco() {
+    const cep = document.getElementById('cep').value;
 
-// Função que vai buscar o endereço usando o CEP digitado
-// Função para buscar o endereço pelo CEP
-async function buscarEndereco() {
-    let cep = document.getElementById('cep').value.trim(); // Pega o valor do CEP e tira os espaços em volta
-
-    // Remove qualquer traço ou espaço dentro do CEP pra garantir que tá no formato certo
-    cep = cep.replace(/[-\s]/g, '');
-
-    // Verifica se o CEP tem 8 dígitos e é só número
-    if (!/^\d{8}$/.test(cep)) {
-        exibirMensagemErro('CEP inválido. Manda um CEP com 8 dígitos.'); // Mostra uma mensagem de erro
-        return; // Sai daqui se o CEP estiver errado
+    if (!cep) {
+        alert('Por favor, insira um CEP válido.');
+        return;
     }
 
-    try {
-        // Chama a API ViaCEP pra buscar o endereço usando o CEP
-        const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
-        if (!response.ok) {
-            throw new Error('Deu ruim na requisição'); // Se a requisição não deu certo, lança um erro
-        }
-
-        const data = await response.json(); // Transforma a resposta em JSON
-        if (data.erro) {
-            throw new Error('CEP não encontrado'); // Se a API não achar o CEP, lança um erro
-        }
-
-        preencherDados(data); // Preenche os campos com o que a API devolveu
-        adicionaHistorico(cep); // Adiciona o CEP no histórico
-    } catch (error) {
-        exibirMensagemErro(error.message); // Mostra a mensagem de erro
-    }
+    fetch(`https://viacep.com.br/ws/${cep}/json/`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.erro) {
+                alert('CEP não encontrado.');
+            } else {
+                document.getElementById('cidade-info').value = data.localidade;
+                exibirResultado(data);
+                buscarClima(data.localidade); // Passa a cidade para buscar o clima
+                salvarHistorico(cep);
+            }
+        })
+        .catch(error => {
+            console.error('Erro ao buscar CEP:', error);
+        });
 }
 
-// Função pra procurar o CEP usando o estado, cidade e logradouro (rua)
-
-// Função pra mostrar o CEP no input de resultados
-function exibirCep(cep) {
-    const cepEncontradoInput = document.getElementById('cep-encontrado');
-    cepEncontradoInput.value = cep; // Coloca o CEP encontrado no campo
-    limparMensagemErro(); // Limpa qualquer mensagem de erro
+function exibirResultado(data) {
+    const divResultados = document.querySelector('.divres');
+    divResultados.innerHTML = `
+        <p><strong>Endereço:</strong> ${data.logradouro}, ${data.bairro}, ${data.localidade} - ${data.uf}</p>
+        <p><strong>CEP:</strong> ${data.cep}</p>
+    `;
 }
 
-// Função pra preencher os campos com os dados recebidos da API
-function preencherDados(data) {
-    document.getElementById('cidade-info').value = data.localidade || '';
-    limparMensagemErro(); // Limpa qualquer mensagem de erro
+function buscarClima(cidade) {
+    const apiKey = 'f329635310647d6ca90c5a6257f6eb82';
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${cidade}&appid=${apiKey}&units=metric&lang=pt_br`;
+
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            exibirClima(data);
+        })
+        .catch(error => {
+            console.error('Erro ao buscar clima:', error);
+        });
 }
 
-// Limpa os campos do endereço depois da pesquisa
-function limparInputsEndereco() {
-    document.getElementById('cidade').value = '';
+function exibirClima(data) {
+    const divClima = document.querySelector('.inputsetup');
+    divClima.innerHTML += `
+        <p><strong>Clima em ${data.name}:</strong> ${data.weather[0].description}, ${data.main.temp}°C</p>
+    `;
 }
 
-// Limpa todos os campos de entrada e resultados
 function limparCampos() {
     document.getElementById('cep').value = '';
-    document.getElementById('cep-info').value = '';
-    document.getElementById('cidade-info').value =  ' ';
-    document.getElementById('cep-encontrado').value = '';
-    document.getElementById('resultado').innerHTML = '';
-    limparMensagemErro(); // Limpa mensagem de erro, se houver
+    document.getElementById('cidade-info').value = '';
+    const divResultados = document.querySelector('.divres');
+    divResultados.innerHTML = '<h2>Resultados</h2>';
 }
+
+function salvarHistorico(cep) {
+    let historico = localStorage.getItem('historico') ? JSON.parse(localStorage.getItem('historico')) : [];
+    historico.push(cep);
+    localStorage.setItem('historico', JSON.stringify(historico));
+    exibirHistorico();
+}
+
+function exibirHistorico() {
+    const historico = localStorage.getItem('historico') ? JSON.parse(localStorage.getItem('historico')) : [];
+    const divHistorico = document.getElementById('historico');
+    divHistorico.innerHTML = '';
+    historico.forEach(cep => {
+        divHistorico.innerHTML += `<p>${cep}</p>`;
+    });
+}
+
 
 // Mostra a mensagem de erro
 function exibirMensagemErro(mensagem) {
